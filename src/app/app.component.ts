@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.temperatureForm = new FormGroup({
       'temperature': new FormControl(temperature, [
         Validators.required,
-        Validators.pattern(/^-?[0-9]\d*(\.\d+)?$/)
+        Validators.pattern(/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/)
       ])
     });
     this.temps = this.tmService.getTemps();
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit() {
-    this.tmService.recordTemperature(this.temperatureForm.value['temperature']);
+    this.tmService.recordTemperature(parseFloat(this.temperatureForm.value['temperature']));
     this.temps = this.tmService.getTemps();
     this.temperatureForm.reset();
   }
