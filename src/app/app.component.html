@@ -24,10 +24,12 @@
 <hr />
 <section>
   <div class="progress">
-    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="[temps.length]" aria-valuemin="0" aria-valuemax="[upperLimit]" style="width:0%;"></div>
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="[temps.length]" aria-valuemin="0" aria-valuemax="[upperLimit]" [ngStyle]="{'width.%':(temps.length/upperLimit)*100}">
+      <span *ngIf="temps.length === upperLimit">Temperature Array is Full</span>
+    </div>
   </div>
   <button class="btn btn-success" (click)="onGetMedian()">Get Median Temperature</button>
-  Current Median: <span id="median-display"></span>
+  Current Median: {{ medianValue }}
   <!-- display current media here-->
 </section>
 <hr>

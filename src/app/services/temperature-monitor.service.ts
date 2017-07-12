@@ -8,7 +8,6 @@ export class TemperatureMonitorService {
 
   recordTemperature(item: number) {
     this.temps.push(item);
-    console.log(this.temps);
   }
 
   getTemps() {

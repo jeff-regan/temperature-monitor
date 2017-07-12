@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TemperatureMonitorService } from './services/temperature-monitor.service';
 
@@ -20,28 +20,21 @@ export class AppComponent implements OnInit {
     let temperature = null;
 
     this.temperatureForm = new FormGroup({
-      'temperature': new FormControl(temperature, Validators.required)
+      'temperature': new FormControl(temperature, [
+        Validators.required,
+        Validators.pattern(/^-?[0-9]\d*(\.\d+)?$/)
+      ])
     });
     this.temps = this.tmService.getTemps();
   }
 
   onGetMedian() {
-    let medianVal = this.tmService.getCurrentMedian();
-    document.querySelector('#median-display').innerHTML = medianVal.toString();
+    this.medianValue = this.tmService.getCurrentMedian();
   }
 
   onSubmit() {
-    let pgElt = document.querySelector('#progress-bar');
-
     this.tmService.recordTemperature(this.temperatureForm.value['temperature']);
     this.temps = this.tmService.getTemps();
-    pgElt.setAttribute('style', 'width:' + (this.temps.length/this.upperLimit)*100 + '%');
-    if (this.temps.length === this.upperLimit) {
-      pgElt.innerHTML = 'Temperature Array is Full';
-    } else {
-      pgElt.innerHTML = '';
-    }
-
     this.temperatureForm.reset();
   }
 }
