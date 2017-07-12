@@ -28,8 +28,8 @@
       <span *ngIf="temps.length === upperLimit">Temperature Array is Full</span>
     </div>
   </div>
-  <button class="btn btn-success" (click)="onGetMedian()">Get Median Temperature</button>
-  Current Median: {{ medianValue }}
+  <!--<button class="btn btn-success" (click)="onGetMedian()">Get Median Temperature</button>-->
+  Current Median: <span *ngIf="temps.length">{{ medianValue }}</span>
   <!-- display current media here-->
 </section>
 <hr>
@@ -38,8 +38,10 @@
       <ul class="list-group">
         <li
           class="list-group-item"
-          *ngFor="let temp of temps">
-          {{ temp }}
+          *ngFor="let temp of temps, let i = index">
+          {{ temp }} <span
+                      class="glyphicon glyphicon-remove-circle pull-right"
+                      style="color:red" (click)="onDelete(i)"></span>
         </li>
       </ul>
     </div>

@@ -28,13 +28,20 @@ export class AppComponent implements OnInit {
     this.temps = this.tmService.getTemps();
   }
 
-  onGetMedian() {
-    this.medianValue = this.tmService.getCurrentMedian();
-  }
+  // onGetMedian() {
+  //   this.medianValue = this.tmService.getCurrentMedian();
+  // }
 
   onSubmit() {
     this.tmService.recordTemperature(parseFloat(this.temperatureForm.value['temperature']));
     this.temps = this.tmService.getTemps();
+    this.medianValue = this.tmService.getCurrentMedian();
     this.temperatureForm.reset();
+  }
+
+  onDelete(index: number) {
+    this.tmService.deleteTemperature(index);
+    this.medianValue = this.tmService.getCurrentMedian();
+    this.temps = this.tmService.getTemps();
   }
 }

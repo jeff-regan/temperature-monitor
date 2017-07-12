@@ -10,6 +10,10 @@ export class TemperatureMonitorService {
     this.temps.push(item);
   }
 
+  deleteTemperature(index: number) {
+    this.temps.splice(index, 1);
+  }
+
   getTemps() {
     return this.temps.slice();
   }
