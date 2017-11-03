@@ -14,6 +14,11 @@ export class TemperatureMonitorService {
     return this.temps.slice();
   }
 
+  clearTemps() {
+    this.temps = [];
+    return this.temps.slice();
+  }
+
   getCurrentMedian() {
     return this.calcMedian(this.temps);
   }

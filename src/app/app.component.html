@@ -5,19 +5,25 @@
 </div>
 <div class="row">
   <div class="col-md-6 col-md-offset-2">
-    <form [formGroup]="temperatureForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="temperatureForm" (ngSubmit)="onSubmit(); needFocus.focus()">
       <label class="form-label" for="temperature">Add Temperature:</label>
       <input
         class="form-control"
         name="temperature"
         id="temperature"
         type="text"
-        formControlName="temperature">
+        formControlName="temperature"
+        #needFocus>
       <br>
       <button
         class="btn btn-primary"
         type='submit'
         [disabled]="!temperatureForm.valid || temps.length === upperLimit">Add</button>
+      <button
+        class="btn btn-danger pull-right"
+        type='button'
+        [disabled]="!temps.length"
+        (click)="onReset()">Clear</button>
     </form>
   </div>
 </div>
@@ -35,8 +41,7 @@
     </div>
   </div>
   <button class="btn btn-success" (click)="onGetMedian()">Get Median Temperature</button>
-  Current Median: {{ medianValue }}
-  <!-- display current media here-->
+  <span *ngIf="temps.length">Current Median: {{ medianValue }}</span>
 </section>
 <hr>
   <div class="row">
@@ -51,5 +56,5 @@
     </div>
   </div>
 <hr>
-<p>developer name: Jeffrey K Regan</p>
+<p>Developer Name: Jeffrey K Regan</p>
 

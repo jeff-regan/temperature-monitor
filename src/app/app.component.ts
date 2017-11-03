@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     this.temperatureForm = new FormGroup({
       'temperature': new FormControl(temperature, [
         Validators.required,
-        Validators.pattern(/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/)
+        Validators.pattern(/^[-+]?[0-9]*\.?[0-9]+$/)
       ])
     });
     this.temps = this.tmService.getTemps();
@@ -30,8 +30,12 @@ export class AppComponent implements OnInit {
 
   onGetMedian() {
     this.medianValue = this.tmService.getCurrentMedian();
+    this.temperatureForm.reset();
   }
-
+  onReset() {
+    this.temps = this.tmService.clearTemps();
+    this.temperatureForm.reset();
+  }
   onSubmit() {
     this.tmService.recordTemperature(parseFloat(this.temperatureForm.value['temperature']));
     this.temps = this.tmService.getTemps();
